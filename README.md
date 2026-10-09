@@ -1,6 +1,6 @@
 <div align="center">
 
-# Ugwiyeon Lee (Lyul Lee)
+# Ugwiyeon Lee (Lyul Lee, 이우귀연, 李又貴連)
 
 ### Chemical Engineering Software Developer
 
