@@ -1,16 +1,16 @@
-# Ugwiyeon Lee · 이우귀연
+# Ugwiyeon Lee
 
 ### Chemical Engineering Software Developer
 
 **Connecting hydrogen safety, physical models, and reproducible scientific software.**
 
-[English](README.md) · [한국어](docs/i18n/README.ko.md) · [简体中文](docs/i18n/README.zh-CN.md) · [日本語](docs/i18n/README.ja.md) · [Français](docs/i18n/README.fr.md) · [Deutsch](docs/i18n/README.de.md) · [Español](docs/i18n/README.es.md) · [हिन्दी](docs/i18n/README.hi.md)
+[English](README.md) · [Korean](docs/i18n/README.ko.md) · [简体中文](docs/i18n/README.zh-CN.md) · [日本語](docs/i18n/README.ja.md) · [Français](docs/i18n/README.fr.md) · [Deutsch](docs/i18n/README.de.md) · [Español](docs/i18n/README.es.md) · [हिन्दी](docs/i18n/README.hi.md)
 
 [GitHub](https://github.com/lyullee) · [Google Scholar](https://scholar.google.com/citations?user=WZn0QQwAAAAJ) · [Email](mailto:lyullee@kgs.or.kr)
 
 ## About me
 
-I am **Ugwiyeon Lee (Lyul Lee, 이우귀연, 李又貴連)**, affiliated with **Korea Gas Safety Corporation** in the Republic of Korea. I develop scientific software at the intersection of chemical engineering, process safety, and computational research. My work turns physical models and research evidence into tools whose assumptions, inputs, and limitations can be inspected.
+I am **Ugwiyeon Lee (Lyul Lee)**, affiliated with **Korea Gas Safety Corporation** in the Republic of Korea. I develop scientific software at the intersection of chemical engineering, process safety, and computational research. My work turns physical models and research evidence into tools whose assumptions, inputs, and limitations can be inspected.
 
 My public portfolio spans several scales: dynamic hydrogen-refuelling equipment and process networks; release, pool, dispersion, and fire analysis; document-grounded safety assistants; atomistic hydrogen energetics; and quantum-computing methods for probability estimation and cryogenic-materials research. I connect these areas through explicit model contracts and reproducibility records rather than treating a calculated number as a complete engineering conclusion.
 
@@ -18,14 +18,15 @@ I focus on **traceable scientific computing**: mass and energy accounting, numer
 
 ## Project guide
 
-This profile covers **17 public projects**, grouped by purpose. The profile repository itself is the eighteenth public repository at the review date. Project descriptions follow their public documentation; their validation results have not been independently rerun for this profile update.
+This profile covers **19 public projects**, grouped by purpose. The profile repository itself is the twentieth public repository at the review date. Project descriptions follow their public documentation; their validation results have not been independently rerun for this profile update.
 
 | Area | Projects |
 | --- | --- |
-| Process simulation and risk integration | hydrogen-station-sim · lh2dt_models · prism |
+| Process simulation and risk integration | hydrogen-station-sim · lh2dt_models · prism · prism-dynasense |
 | Safety knowledge systems | saga-py · saga-sts |
 | Release sources and dispersion | slabx · slabx-lh2 · degadisx · degali · lh2poolx · DynamicLH2PoolX |
 | Fire and storage-tank analysis | pifira · lh2-psv-tno-risk |
+| Ammonia supply-system screening | ammonia-supply-risk |
 | Materials and quantum methods | hydrogen-local-energetics · qsafety-qae · psa-qae-resource-audit · nbcp-magnetocaloric-quantum-spectral-flow |
 
 ## Process simulation and risk integration
@@ -53,6 +54,14 @@ Composable, first-principles liquid-hydrogen equipment and process-network model
 - **Capabilities:** scenario orchestration and a traceable ledger for operating mode, input origin, frequency evidence, release history, weather, ignition, population, protection and consequence output.
 - **Architecture:** process and consequence models remain independent providers. Measured and predicted states are distinguished; missing accident-source information is not silently inferred from normal operating flow.
 - **Use and limits:** the `prism-risk` package provides the `prism` CLI, standard-mode templates and public LH₂ backend documentation. A completed calculation chain is not proof of a complete facility QRA or regulatory certification.
+
+### [prism-dynasense](https://github.com/lyullee/prism-dynasense)
+
+A local research application for time-dependent hydrogen-release and thermal-exposure screening, using PRISM dose/probit functions and direct-model Sobol sensitivity analysis.
+
+- **Calculation:** pressurized gas release, delayed ignition, upstream isolation, residual downstream release, and point-source radiation within a declared assessment horizon.
+- **Outputs:** an offline dashboard, time histories, raw sensitivity samples, convergence diagnostics, input/dependency hashes, and PNG/SVG figures.
+- **Boundary:** one supported substance and scenario in v0.1.0. Conditional harm probabilities and sensitivity indices do not establish annual facility risk or experimental validation. The exported dashboard displays results; inputs are changed through JSON and the CLI.
 
 ## Safety knowledge systems
 
@@ -140,6 +149,16 @@ A research record and lightweight post-processing package linking LH₂ tank sel
 - **Public tools:** load published results, calculate flash-equivalent mass and conditional risk area, classify dispersion routes and regenerate five manuscript figures from saved ledgers.
 - **Boundary:** the complete upstream tank and internal TNO solvers are not redistributed. This is a citable research/post-processing record, not a design-certified PSV sizing tool.
 
+## Ammonia supply-system screening
+
+### [ammonia-supply-risk](https://github.com/lyullee/ammonia-supply-risk)
+
+A compact Python package publishing the reproducible core screening examples from an ammonia supply-system study.
+
+- **Capabilities:** uncertain damage-proxy comparisons for ten materials, explicitly declared material/weld/environment/inspection multipliers, and allocation of one initiating frequency across mutually exclusive protection paths.
+- **Reproduction:** seeded NumPy sampling, evidence qualifications and source identifiers, existing API tests, and an archived seven-output Sobol summary.
+- **Boundary:** material rankings are conditional proxies, not observed annual leak rates. Calibrated frequencies need exposure/failure/inspection evidence; the package does not contain a complete ammonia source, dispersion, consequence, or facility-QRA solver.
+
 ## Materials and quantum methods
 
 ### [hydrogen-local-energetics](https://github.com/lyullee/hydrogen-local-energetics)
@@ -193,6 +212,8 @@ Resolved source-plane state
                  └── DEGADIS family ──── degadisx / degali
                  │
 Scenarios + frequencies + consequences ── PRISM
+Time-dependent release + sensitivity ──── PRISM-DynaSense
+Ammonia material/path screening ───────── ammonia-supply-risk
 
 Fire / tank analysis ───── pifira / lh2-psv-tno-risk
 Atomistic hydrogen ─────── hydrogen-local-energetics
@@ -217,4 +238,4 @@ For research collaboration, hydrogen-safety modelling or scientific-software dis
 
 Consult each repository's licence, citation metadata/DOI, data policy and validation record before reuse. The descriptions here preserve the repositories' stated research boundaries; they do not independently certify safety-related outputs.
 
-<sub>Public-repository review: 2026-10-18 · 17 projects + this profile repository.</sub>
+<sub>Public-repository review: 2026-10-22 · 19 projects + this profile repository.</sub>
