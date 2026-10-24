@@ -1,4 +1,4 @@
-# Ugwiyeon Lee
+# Ugwiyeon Lee (Lyul Lee)
 
 ### Chemical Engineering Software Developer
 
