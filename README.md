@@ -12,17 +12,17 @@
 
 I am **Ugwiyeon Lee (Lyul Lee)**, affiliated with **Korea Gas Safety Corporation** in the Republic of Korea. I develop scientific software at the intersection of chemical engineering, process safety, and computational research. My work turns physical models and research evidence into tools whose assumptions, inputs, and limitations can be inspected.
 
-My public portfolio spans several scales: dynamic hydrogen-refuelling equipment and process networks; release, pool, dispersion, and fire analysis; document-grounded safety assistants; atomistic hydrogen energetics; and quantum-computing methods for probability estimation and cryogenic-materials research. I connect these areas through explicit model contracts and reproducibility records rather than treating a calculated number as a complete engineering conclusion.
+My public portfolio spans several scales: dynamic hydrogen-refuelling equipment, liquid-hydrogen networks and PSA/VPSA separation; ammonia supply-system screening; release, pool, dispersion, and fire analysis; document-grounded safety assistants; atomistic hydrogen energetics; and quantum-computing methods for probability estimation and cryogenic-materials research. I connect these areas through explicit model contracts and reproducibility records rather than treating a calculated number as a complete engineering conclusion.
 
 I focus on **traceable scientific computing**: mass and energy accounting, numerical convergence, comparison with reference implementations, independent experimental checks, and versioned data provenance. I distinguish software verification from physical validation, historical model reproduction from new extensions, and simulator results from real-device measurements. Where the evidence is incomplete, I aim to make that boundary visible.
 
 ## Project guide
 
-This profile covers **19 public projects**, grouped by purpose. The profile repository itself is the twentieth public repository at the review date. Project descriptions follow their public documentation; their validation results have not been independently rerun for this profile update.
+This profile covers **20 public projects**, grouped by purpose. The profile repository itself is the twenty-first public repository at the review date. Project descriptions follow their public documentation; their validation results have not been independently rerun for this profile update.
 
 | Area | Projects |
 | --- | --- |
-| Process simulation and risk integration | hydrogen-station-sim · lh2dt_models · prism · prism-dynasense |
+| Process simulation and risk integration | hydrogen-station-sim · lh2dt_models · prism · prism-dynasense · psa-dyna |
 | Safety knowledge systems | saga-py · saga-sts |
 | Release sources and dispersion | slabx · slabx-lh2 · degadisx · degali · lh2poolx · DynamicLH2PoolX |
 | Fire and storage-tank analysis | pifira · lh2-psv-tno-risk |
@@ -62,6 +62,15 @@ A local research application for time-dependent hydrogen-release and thermal-exp
 - **Calculation:** pressurized gas release, delayed ignition, upstream isolation, residual downstream release, and point-source radiation within a declared assessment horizon.
 - **Outputs:** an offline dashboard, time histories, raw sensitivity samples, convergence diagnostics, input/dependency hashes, and PNG/SVG figures.
 - **Boundary:** one supported substance and scenario in v0.1.0. Conditional harm probabilities and sensitivity indices do not establish annual facility risk or experimental validation. The exported dashboard displays results; inputs are changed through JSON and the CLI.
+
+### [psa-dyna](https://github.com/lyullee/psa-dyna)
+
+**PSA-Dyna** is a physics-based, one-dimensional, non-isothermal, multicomponent PSA/VPSA model. It resolves adsorption fronts, pressure equalisation, thermal waves and valve switching, then prepares cycle-average process streams only when the applicable numerical and evidence gates permit release.
+
+- **Physics and numerics:** finite-volume packed beds, Ergun pressure-flow closure, competitive dual-site Langmuir equilibrium and LDF kinetics, gas/solid/wall energy balances, compressible valves, and optional Peng–Robinson properties. Multiple beds and cycle schedules, stiff integration, sparse Jacobian structure and checkpoint/restart support numerical research.
+- **Evidence:** the [public validation summary](https://github.com/lyullee/psa-dyna/blob/main/validation/validation_summary.json) reports that the Wang single-bed breakthrough figure comparison passes the declared composition, temperature, mesh, time-step and conservation gates. This does not validate cyclic four-bed VPSA or an industrial PSA design; the S-015 candidate remains a numerical design screen, and the Boer biogas cycle track remains blocked by apparatus-response identification.
+- **Process integration:** a guarded DWSIM contract carries cycle-average `FEED`, `PRODUCT` and `TAIL` streams with thermodynamic state, enthalpy and provenance. The interface is implemented, but automatic DWSIM release and industrial-design qualification remain closed. A single completed cycle is not cyclic steady state.
+- **Relationship:** a reusable dynamic separation model, distinct from the `psa-qae-resource-audit` archive of a particular engineering probability event and hardware probe. See the [physics](https://github.com/lyullee/psa-dyna/blob/main/docs/physics.md), [validation](https://github.com/lyullee/psa-dyna/blob/main/docs/validation.md) and [DWSIM bridge](https://github.com/lyullee/psa-dyna/blob/main/docs/dwsim-bridge.md) documentation.
 
 ## Safety knowledge systems
 
@@ -179,11 +188,12 @@ A research package for quantum amplitude estimation on finite-mixture safety and
 
 ### [psa-qae-resource-audit](https://github.com/lyullee/psa-qae-resource-audit)
 
-A reproducibility study connecting pressure-consistent hydrogen PSA/membrane operation and regeneration reserve to a constrained probability event and quantum-oracle resource audit.
+A versioned research archive connecting pressure-consistent hydrogen PSA/membrane operation and regeneration reserve to a constrained probability event and quantum-oracle resource audit. It is not an installable dynamic PSA application; `psa-dyna` provides the separate dynamic-model implementation.
 
 - **Engineering evidence:** corrected process topology, public experimental holdouts, independent integrator checks and DWSIM cross-checks; process performance and probability-discretisation errors are reported separately.
 - **Quantum audit:** resource accounting for the final ten-bit arithmetic oracle and an IBM Kingston test of a seven-qubit Boolean circuit representing the same event at two-bit resolution.
-- **Boundary and artifacts:** the hardware test covers all 64 basis inputs, not coherent QAE or the full arithmetic oracle. Manuscripts, results, circuits, raw counts and checksums are provided; synchronized validation of the final integrated apparatus remains outstanding.
+- **Inspection and artifacts:** begin with [EXECUTION_BOUNDARIES.md](https://github.com/lyullee/psa-qae-resource-audit/blob/main/EXECUTION_BOUNDARIES.md) and the consolidated evidence. Inspecting archived counts does not require a new QPU submission; historical scripts can retain workstation-specific dependencies.
+- **Boundary:** the hardware test covers all 64 basis inputs, not coherent QAE or the full arithmetic oracle. Manuscripts, results, circuits, raw counts and checksums are provided; synchronized validation of the final integrated apparatus remains outstanding.
 
 ### [nbcp-magnetocaloric-quantum-spectral-flow](https://github.com/lyullee/nbcp-magnetocaloric-quantum-spectral-flow)
 
@@ -215,6 +225,7 @@ Scenarios + frequencies + consequences ── PRISM
 Time-dependent release + sensitivity ──── PRISM-DynaSense
 Ammonia material/path screening ───────── ammonia-supply-risk
 
+Dynamic separation ─────── psa-dyna (guarded DWSIM contract)
 Fire / tank analysis ───── pifira / lh2-psv-tno-risk
 Atomistic hydrogen ─────── hydrogen-local-energetics
 Probability methods ────── qsafety-qae / psa-qae-resource-audit
@@ -225,7 +236,8 @@ Magnetic refrigeration ─── nbcp-magnetocaloric-quantum-spectral-flow
 
 | Area | Tools and methods used across the public projects |
 | --- | --- |
-| Scientific computing | Python, NumPy, SciPy, CoolProp, numerical integration, mass/energy balances |
+| Scientific computing | Python, NumPy, SciPy, CoolProp, finite volumes, stiff integration, mass/energy balances |
+| Sensitivity and uncertainty | SALib Sobol analysis, seeded sampling, convergence diagnostics |
 | Services and retrieval | FastAPI, Java, Spring Boot, Spring AI, Lucene/Nori, PostgreSQL/pgvector |
 | Materials | Quantum ESPRESSO, DFT, archived MACE-OMat-0 and CHGNet analysis |
 | Quantum computing | Qiskit, Aer, IBM Quantum, QAE, circuit-resource accounting |
@@ -238,4 +250,4 @@ For research collaboration, hydrogen-safety modelling or scientific-software dis
 
 Consult each repository's licence, citation metadata/DOI, data policy and validation record before reuse. The descriptions here preserve the repositories' stated research boundaries; they do not independently certify safety-related outputs.
 
-<sub>Public-repository review: 2026-10-22 · 19 projects + this profile repository.</sub>
+<sub>Public-repository review: 2026-10-24 · 20 projects + this profile repository.</sub>

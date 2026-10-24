@@ -10,7 +10,9 @@
 
 Soy Ugwiyeon Lee (이우귀연, Lyul Lee), de Korea Gas Safety Corporation, en la República de Corea. Desarrollo software científico en la intersección de la ingeniería química, la seguridad de procesos y la investigación computacional. Trabajo con equipos de hidrógeno, términos fuente, charcos de hidrógeno líquido, dispersión e incendios, asistentes documentales, energética atómica del hidrógeno y métodos cuánticos. Priorizo supuestos físicos explícitos, balances de masa y energía, convergencia, comparación experimental independiente y procedencia de datos. Distingo la verificación del software, la validación física y las mediciones en hardware cuántico.
 
-> Guía localizada del README principal en inglés: objetivos, funciones y límites de la evidencia de los 17 proyectos. Los detalles técnicos están en la versión inglesa y en cada repositorio. Revisión: 2026-10-18; no se repitieron de forma independiente los cálculos de validación para esta actualización.
+También trabajo en cribado de suministro de amoníaco, separación dinámica PSA/VPSA y exposición térmica transitoria con análisis de sensibilidad.
+
+> Guía localizada del README principal en inglés: objetivos, funciones y límites de la evidencia de los 20 proyectos. Los detalles técnicos están en la versión inglesa y en cada repositorio. Revisión: 2026-10-24; no se repitieron de forma independiente los cálculos de validación para esta actualización.
 
 ## Proyectos
 
@@ -25,6 +27,18 @@ Biblioteca Python de equipos LH₂ componibles con estados termodinámicos y flu
 ### [prism](https://github.com/lyullee/prism)
 
 PRISM conecta estado del proceso, desviaciones HAZOP, frecuencias bibliográficas, historiales de liberación, dispersión y riesgo condicional. Usa proveedores de modelos independientes y un registro que distingue mediciones de predicciones. El paquete prism-risk y la CLI prism no implican una QRA completa ni certificación regulatoria.
+
+### [prism-dynasense](https://github.com/lyullee/prism-dynasense)
+
+PRISM-DynaSense calcula localmente liberación de hidrógeno presurizado, ignición retardada, aislamiento aguas arriba, descarga residual aguas abajo y exposición térmica. Combina dosis/probit de PRISM y Sobol directo de SALib con muestras, convergencia, hashes y panel sin conexión. Las entradas cambian mediante JSON/CLI; admite una sustancia y escenario, sin afirmar riesgo anual de instalación ni validación experimental.
+
+### [ammonia-supply-risk](https://github.com/lyullee/ammonia-supply-risk)
+
+Herramientas Python de cribado para suministro de amoníaco: indicadores inciertos de daño de diez materiales, factores de material/soldadura/entorno/inspección y reparto de una frecuencia inicial entre rutas de protección excluyentes. El resumen Sobol de siete salidas está archivado y la API no lo recalcula. Las clasificaciones no son tasas anuales medidas de fuga; no ofrece dispersión, consecuencias o QRA completas.
+
+### [psa-dyna](https://github.com/lyullee/psa-dyna)
+
+PSA-Dyna modela PSA/VPSA dinámica 1D, no isotérmica y multicomponente: volúmenes finitos, Ergun, adsorción competitiva/LDF, energía gas-sólido-pared, válvulas compresibles, múltiples lechos/pasos y reinicio/CSS. La comparación gráfica de ruptura de un lecho de Wang supera los criterios declarados, sin validar ciclos VPSA ni diseño industrial. El contrato DWSIM de corrientes medias FEED/PRODUCT/TAIL está implementado, pero la transferencia automática permanece bloqueada.
 
 ### [saga-py](https://github.com/lyullee/saga-py)
 
